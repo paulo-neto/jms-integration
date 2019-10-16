@@ -15,7 +15,10 @@ import com.pauloneto.jmsintegration.models.Product;
                 propertyValue="javax.jms.Queue"),            
         @ActivationConfigProperty(
                 propertyName="destination",
-                propertyValue="java:/jboss/exported/jms/queue/TestQ")
+                propertyValue="java:/jboss/exported/jms/queue/TestQ"),
+        @ActivationConfigProperty(
+                propertyName="acknowledgeMode",
+                propertyValue="Auto-acknowledge")
 })
 public class ProductMessageConsumer implements MessageListener{
 	
