@@ -1,30 +1,38 @@
 package com.pauloneto.jmsintegration.consumers;
 
-import javax.annotation.Resource;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.jms.JMSConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.Queue;
+import javax.annotation.security.PermitAll;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
 
 import com.pauloneto.jmsintegration.models.Product;
 
-@Stateless
-public class ProductMessageConsumer {
-	
-	@Inject
-	@JMSConnectionFactory("java:/ConnectionFactory")
-    private JMSContext context;
- 
-    @Resource(mappedName = "java:/jboss/exported/jms/queue/TestQ")
-    private Queue testQ;
+@MessageDriven(activationConfig = {
+		@ActivationConfigProperty(
+                propertyName="destinationType",
+                propertyValue="javax.jms.Queue"),            
+        @ActivationConfigProperty(
+                propertyName="destination",
+                propertyValue="java:/jboss/exported/jms/queue/TestQ")
+})
+public class ProductMessageConsumer implements MessageListener{
 	
 	public Product onMessage() {
-        Product product = context.createConsumer(testQ).receiveBody(Product.class, 1000);
-		if(product != null)
-			return product;
-        
-		System.out.println("No Product receiver!!!");
         return null;
+	}
+
+	@Override @PermitAll
+	public void onMessage(Message message) {
+		Product product;
+		try {
+			product = message.getBody(Product.class);
+			if(product != null)
+				System.out.println(product);
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
