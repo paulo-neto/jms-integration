@@ -2,7 +2,7 @@
 Projeto que exemplifica o uso da API JMS do Java para integração entre sistemas
 
 # Container JavaEE
-Esse exemplo usa como conyainer JavaEE o Jboss EAP 7.1, usando o arquivo standalone.xml
+Esse exemplo usa como contâiner JavaEE o Jboss EAP 7.1, usando o arquivo standalone.xml
 
 # Configurar uma fila(Queue)
 No arquivo ``standalone.xml``  procure o subsystem ``urn:jboss:domain:ejb3:5.0`` e adicione:
