@@ -14,5 +14,7 @@ No arquivo ``standalone.xml``  procure o subsystem ``urn:jboss:domain:ejb3:5.0``
 ```
 No arquivo ``standalone.xml``  procure o subsystem ``urn:jboss:domain:messaging-activemq:`` e adicone:
 
-``<jms-queue name="TestQ" entries="java:/jboss/exported/jms/queue/TestQ"/>``
+```xml
+	<jms-queue name="TestQ" entries="java:/jboss/exported/jms/queue/TestQ"/>
+```
 
